@@ -1,7 +1,7 @@
 <#
     Module : INI_Legacy.psm1
     Updated: 11/06/2018
-    Author : Zach Nybo
+    Author : Zach Nybo <zach.nybo@gmail.com>
     Version: 1.0
 
     Summary:
@@ -28,8 +28,8 @@ Function Get-IniFile {
 
     .Notes
         Module : INI.psm1
-        Updated: 10/11/2018
-        Author : Configuration Management
+        Updated: 11/06/2018
+        Author : Zach Nybo <zach.nybo@gmail.com>
         Version: 1.0
 
         Disclosure:
