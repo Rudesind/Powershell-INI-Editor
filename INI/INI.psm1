@@ -1,21 +1,20 @@
 <#
     Module : INI.psm1
-    Updated: 10/12/2018
-    Author : Configuration Management
+    Updated: 11/06/2018
+    Author : Zach Nybo
     Version: 1.0
-    Documentation: INI.md
 
     Summary:
     This module reads and writes data to ini file. Use the function Get-IniFile
     to input the file contents into a key\value array (hash table), and use
     Write-IniFile to write the contents of a hash table to an ini file.
 
-    Disclosure: 
+    Disclosure:
     The below script is transposed from the following scripts:
     https://gallery.technet.microsoft.com/scriptcenter/ea40c1ef-c856-434b-b8fb-ebd7a76e8d91
     https://gallery.technet.microsoft.com/scriptcenter/7d7c867f-026e-4620-bf32-eca99b4e42f4
     All functions will be described in detail. All credit goes to the original
-    author: Oliver Lipkau <oliver@lipkau.net>  
+    author: Oliver Lipkau <oliver@lipkau.net>
 #>
 
 Function Get-IniFile {
@@ -24,41 +23,40 @@ Function Get-IniFile {
         This function loads and processes an ini file into a key\value hash table.
     .Description
         This function is part of the INI module. This module is used to read and write data to an INI file with a hash table using a key\value structure.
-        
+
     .Notes
         Module : INI.psm1
-        Updated: 10/11/2018
-        Author : Configuration Management
+        Updated: 11/06/2018
+        Author : Zach Nybo
         Version: 1.0
-        Documentation: INI.md
 
-        Disclosure: 
+        Disclosure:
         This function is transposed from the following script:
         https://gallery.technet.microsoft.com/scriptcenter/ea40c1ef-c856-434b-b8fb-ebd7a76e8d91
-        
+
         All functions will be described in detail. All credit goes to the original author: Oliver Lipkau <oliver@lipkau.net>
-    
+
     .Inputs
         System.String
-    
+
     .Outputs
         System.Collections.Hashtable
-    
+
     .Parameter File
         The name of the .ini file including its path.
 
     .Example
         $iniFile = Get-IniFile example.ini
         $iniFile.section.key
-    
+
     .Example
         example.ini | $iniFile = Get-IniFile
-    
+
     #>
 
     # Allows the script to operate like a compiled cmdlet
     #
-    [CmdletBinding()] 
+    [CmdletBinding()]
 
     # The inner comments of the Param block will be displayed with: Get-Help ... -Detailed if no Parameter section is defined
     #
@@ -66,13 +64,13 @@ Function Get-IniFile {
 
         # Cannot be $null or ""
         #
-        [ValidateNotNullOrEmpty()] 
+        [ValidateNotNullOrEmpty()]
 
         # Path to the file must exist and have a ".ini" extension
         #
         [ValidateScript({(Test-Path $_) -and ((Get-Item $_).Extension -eq ".ini")})]
 
-        # Parameter is mandatory and allows piped data 
+        # Parameter is mandatory and allows piped data
         #
         [Parameter(ValueFromPipeline=$True, Mandatory=$True)]
 
@@ -84,12 +82,12 @@ Function Get-IniFile {
     #
     New-Variable INI_PROCESSING_FAILED -option Constant -value 4000
 
-    # Initialize the function 
+    # Initialize the function
     #
     Begin {
 
         try {
-        
+
             # Friendly error message for the function
             #
             [string] $errorMsg = [string]::Empty
@@ -105,7 +103,7 @@ Function Get-IniFile {
             # Holds the value that relates to a key
             #
             [string] $value = [string]::Empty
-    
+
             # The hash table
             #
             [object] $ini = $null
@@ -128,7 +126,7 @@ Function Get-IniFile {
         try {
 
             # Create the hash table
-            # 
+            #
             $ini = @{}
 
             # Create a switch function based on regular expression cases
@@ -147,7 +145,7 @@ Function Get-IniFile {
                     #
                     $ini[$section] = @{}
 
-                    # Prepares the comments for this section 
+                    # Prepares the comments for this section
                     #
                     $CommentCount = 0
                 }
@@ -203,11 +201,11 @@ Function Get-IniFile {
 
         } catch {
             $errorMsg = "Error processing $File file: " + $Error[0]
-            throw 
+            throw
             return $INI_PROCESSING_FAILED
         }
     }
-    
+
     # Exit the script
     #
     End {
@@ -222,7 +220,7 @@ Function Write-IniFile {
 
     .Description
         This function is part of the INI module. This module is used to read and write data to an INI file with a hash table using a key\value structure.
-        
+
     .Notes
         Module : INI.psm1
         Updated: 10/12/2018
@@ -230,25 +228,25 @@ Function Write-IniFile {
         Version: 1.0
         Documentation: INI.md
 
-        Disclosure: 
+        Disclosure:
         This function is transposed from the following script:
         https://gallery.technet.microsoft.com/scriptcenter/7d7c867f-026e-4620-bf32-eca99b4e42f4
 
         All functions will be described in detail. All credit goes to the original author: Oliver Lipkau <oliver@lipkau.net>
-    
+
     .Inputs
         System.String
         System.Collections.Hashtable
-    
+
     .Outputs
         System.Int32
-    
+
     .Parameter Append
         Append the info to the end of the file.
-    
+
     .Parameter InputHastTable
         The data (hash table) to be written to the file.
-    
+
     .Parameter File
         The file to write the data to.
 
@@ -256,12 +254,12 @@ Function Write-IniFile {
         $ini = Get-IniFile .\example.ini
         $ini.network.ip = "10.200.10.13"
         Write-IniFile .\example.ini $ini
-    
+
     #>
 
     # Allows the script to operate like a compiled cmdlet
     #
-    [CmdletBinding()] 
+    [CmdletBinding()]
 
     Param(
 
@@ -269,12 +267,12 @@ Function Write-IniFile {
         #
         [switch]$Append,
 
-        [ValidateNotNullOrEmpty()] 
+        [ValidateNotNullOrEmpty()]
         [ValidateScript({(Test-Path $_) -and ((Get-Item $_).Extension -eq ".ini")})]
         [Parameter(Mandatory=$True)]
         [string] $File,
 
-        [ValidateNotNullOrEmpty()] 
+        [ValidateNotNullOrEmpty()]
         [Parameter(ValueFromPipeline=$True, Mandatory=$True)]
         [Hashtable]$InputHashTable
 
@@ -285,12 +283,12 @@ Function Write-IniFile {
     New-Variable FILE_CREATE_FAILED -option Constant -value 4000
     New-Variable INI_WRITE_FAILED -option Constant -value 4001
 
-    # Initialize the function 
+    # Initialize the function
     #
     Begin {
 
         try {
-        
+
             # Friendly error message for the function
             #
             [string] $errorMsg = [string]::Empty
@@ -341,7 +339,7 @@ Function Write-IniFile {
                 # Error encountered, throw exception and exit function
                 #
                 $errorMsg = "Error, could not create or load $file"
-                throw $errorMsg 
+                throw $errorMsg
                 return $FILE_CREATE_FAILED
 
             }
@@ -357,7 +355,7 @@ Function Write-IniFile {
                 #
                 if (!($($InputHashTable[$key].GetType().Name) -eq "Hashtable")) {
                     # No Section found?
-                    
+
                     # Write key\value without a section
                     #
                     Add-Content -Path $outFile -Value "$key=$($InputHashTable[$key])" -Encoding $encoding
@@ -402,11 +400,11 @@ Function Write-IniFile {
 
         } catch {
             $errorMsg = "Error processing $file file: " + $Error[0]
-            throw 
+            throw
             return $INI_WRITE_FAILED
         }
     }
-    
+
     # Exit the script
     #
     End {
