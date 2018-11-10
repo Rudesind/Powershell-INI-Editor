@@ -154,9 +154,9 @@ Function Get-IniFile {
                 #
                 if (!($section)) {
 
-                    # No section was found, so add "No-Section" to the hash table
+                    # No section was found, so add "NoSection" to the hash table
                     #
-                    $section = "No-Section"
+                    $section = "NoSection"
                     $ini[$section] = @{}
                 }
 
@@ -182,7 +182,7 @@ Function Get-IniFile {
             "(.+?)\s*=\s*(.*)" {
 
                 if (!($section)) {
-                    $section = "No-Section"
+                    $section = "NoSection"
                     $ini[$section] = @{}
                 }
 
