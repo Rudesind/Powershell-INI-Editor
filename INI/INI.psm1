@@ -1,7 +1,7 @@
 <#
     Module : INI.psm1
-    Updated: 11/06/2018
-    Author : Zach Nybo <zach.nybo@gmail.com>
+    Updated: 11/12/2018
+    Author : Rudesind <rudesind76@gmail.com>
     Version: 1.0
 
     Summary:
@@ -26,8 +26,8 @@ Function Get-IniFile {
 
     .Notes
         Module : INI.psm1
-        Updated: 11/06/2018
-        Author : Zach Nybo <zach.nybo@gmail.com>
+        Updated: 11/12/2018
+        Author : Rudesind <rudesind76@gmail.com>
         Version: 1.0
 
         Disclosure:
