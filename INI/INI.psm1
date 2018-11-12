@@ -17,6 +17,9 @@
     author: Oliver Lipkau <oliver@lipkau.net>
 #>
 
+# TODO: The begin, process and end functions are not working as expected. 
+# This needs to be addressed. Use INI_Legacy.psm1 until this issue is resolved.
+
 Function Get-IniFile {
     <#
     .Synopsis
