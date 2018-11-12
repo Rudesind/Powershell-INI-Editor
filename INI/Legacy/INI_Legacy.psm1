@@ -215,8 +215,8 @@ Function Write-IniFile {
 
     .Notes
         Module : INI.psm1
-        Updated: 10/12/2018
-        Author : Configuration Management
+        Updated: 11/12/2018
+        Author : Rudesind <rudesind76@gmail.com>
         Version: 1.0
         Documentation: INI.md
 
