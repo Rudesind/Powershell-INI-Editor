@@ -1,6 +1,6 @@
 <#
     Module : INI_Legacy.psm1
-    Updated: 11/12/2018
+    Updated: 11/13/2018
     Author : Rudesind <rudesind76@gmail.com>
     Version: 1.0
 
@@ -28,7 +28,7 @@ Function Get-IniFile {
 
     .Notes
         Module : INI.psm1
-        Updated: 11/12/2018
+        Updated: 11/13/2018
         Author : Rudesind <rudesind76@gmail.com>
         Version: 1.0
 
@@ -197,7 +197,7 @@ Function Get-IniFile {
 
     } catch {
         $errorMsg = "Error processing $File file: " + $Error[0]
-        throw
+        throw $errorMsg
         return $INI_PROCESSING_FAILED
     }
 
@@ -215,7 +215,7 @@ Function Write-IniFile {
 
     .Notes
         Module : INI.psm1
-        Updated: 11/12/2018
+        Updated: 11/13/2018
         Author : Rudesind <rudesind76@gmail.com>
         Version: 1.0
         Documentation: INI.md
@@ -387,7 +387,7 @@ Function Write-IniFile {
 
     } catch {
         $errorMsg = "Error processing $file file: " + $Error[0]
-        throw
+        throw $errorMsg
         return $INI_WRITE_FAILED
     }
 
