@@ -191,12 +191,21 @@ Function Get-IniFile {
                 $key,$value = $matches[1..2]
                 $ini[$section][$key] = $value
             }
+
+            # The INI file structure is not recognized
+            # 
+            default {
+                
+                $errorMsg = "INI file structure is not recognized"
+                throw $errorMsg
+
+            }
         }
 
         return $ini
 
     } catch {
-        $errorMsg = "Error processing $File file: " + $Error[0]
+        $errorMsg = "Error processing $File file: " + $Error[0] + $_.Exception.Message
         throw $errorMsg
         return $INI_PROCESSING_FAILED
     }
